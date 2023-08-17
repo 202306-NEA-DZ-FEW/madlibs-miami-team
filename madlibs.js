@@ -26,17 +26,88 @@
  * There are multiple ways to do this, but you may want to use regular expressions.
  * Please go through this lesson: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/regular-expressions/
  */
+const rawStory = "In the depths of an[a] jungle, the enigmatic game of Jumanji lay dormant. Those who[v] to roll its dice found themselves thrust into a world of[a] tests and unforeseen mysteries. Conquering the challenges demanded[a] and wit, revealing[a] strengths. With each[n], Jumanji's legend grew, a testament to the indomitable spirit of those who[v] to play."
+console.log(rawStory);
+
+const objArr = [];
+
 function parseStory(rawStory) {
-  // Your code here.
-  return {}; // This line is currently wrong :)
+  let dot = /\./g;
+  let comma = /, /g;
+  let noun = /\[n\]/;
+  let verb = /\[v\]/;
+  let adj = /\[a\]/;
+
+  rawStory = rawStory.replace(comma, " ,");
+  rawStory = rawStory.replace(dot, " .");
+  let splitArr = rawStory.split(" ");
+  splitArr.forEach(a => {
+    if (noun.test(a)) {
+      const obj = {};
+      obj["word"] = a.slice(0, a.length - 3);
+      obj["pos"] = "noun";
+      objArr.push(obj);
+    }
+    else if (verb.test(a)) {
+      const obj = {};
+      obj["word"] = a.slice(0, a.length - 3);
+      obj["pos"] = "verb";
+      objArr.push(obj);
+    }
+    else if (adj.test(a)) {
+      const obj = {};
+      obj["word"] = a.slice(0, a.length - 3);
+      obj["pos"] = "adjective"; // Corrected "adj" to "adjective"
+      objArr.push(obj);
+    }
+    else {
+      const obj = {};
+      obj["word"] = a;
+      objArr.push(obj);
+    }
+  });
+  return objArr;
 }
 
-/**
- * All your other JavaScript code goes here, inside the function. Don't worry about
- * the `then` and `async` syntax for now.
- * 
- * You'll want to use the results of parseStory() to display the story on the page.
- */
+const processedStory=parseStory(rawStory);
+
+const edit = document.querySelector(".madLibsEdit"); // Using querySelector to select a specific element
+const pre = document.querySelector(".madLibsPreview"); // Using querySelector to select a specific element
+pre.innerHTML=rawStory;
+function madlibsEdit(processedStory) {
+ 
+
+  for (const item of processedStory) {
+    for (const [key, value] of Object.entries(item)) {
+      if (key === "pos") {
+        const input = document.createElement("input");
+        if (value === "noun") {
+          input.setAttribute("placeholder", "noun");
+        }
+        if (value === "verb") {
+          input.setAttribute("placeholder", "verb");
+        }
+        if (value === "adjective") {
+          input.setAttribute("placeholder", "adjective");
+        }
+        edit.appendChild(input); // Using appendChild to add elements to the container
+       
+      }
+      else {
+        edit.innerHTML += ` ${value}`; // Using innerHTML to add content
+        
+      }
+    }
+  }
+}
+
+madlibsEdit(processedStory);
+
+function madLibsPreview()
+
+
+
 getRawStory().then(parseStory).then((processedStory) => {
+
   console.log(processedStory);
 });
