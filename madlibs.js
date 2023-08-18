@@ -26,6 +26,7 @@
  * There are multiple ways to do this, but you may want to use regular expressions.
  * Please go through this lesson: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/regular-expressions/
  */
+document.body.style.overflow = "hidden";
 
 const progressFill = document.querySelector(".progress-fill"),
   progressLoadNum = document.querySelector(".progress-load-num");
@@ -73,7 +74,7 @@ function parseStory(rawStory) {
   rawStory = rawStory.replace(/\,/g, " ,");
   let arrWord = rawStory.split(" ");
   let storyToObj = [];
-  arrWord.forEach(item => {
+  arrWord.forEach((item) => {
     if (item.match(/[[a-zA-Z]]/g)) {
       let key = item.split("[");
       switch (key[1]) {
@@ -113,10 +114,43 @@ function parseStory(rawStory) {
  * You'll want to use the results of parseStory() to display the story on the page.
  *
  */
+const body = document.querySelector("body");
+const container = document.createElement("div");
+const edit = document.querySelector(".madLibsEdit"); // Using querySelector to select a specific element
+const pre = document.querySelector(".madLibsPreview"); // Using querySelector to select a specific element
+const playMusic = document.createElement("button");
+const resetBtn = document.createElement("button");
+const soundCheckBtn = document.querySelector(".sound-btn");
+const sound = document.getElementById("sound");
+soundCheckBtn.addEventListener("click", () => {
+  if (sound.paused) {
+    sound.play();
+    playMusic.textContent = "Pause";
+  } else {
+    sound.pause();
+  }
+});
+body.append(container);
+playMusic.textContent = "Play";
+resetBtn.textContent = "Reset";
+
+playMusic.addEventListener("click", () => {
+  if (sound.paused) {
+    sound.play();
+    playMusic.textContent = "Pause";
+  } else {
+    sound.pause();
+    playMusic.textContent = "Play";
+  }
+});
+
+container.setAttribute("class", "container");
+container.appendChild(edit);
+container.appendChild(pre);
 
 function madlibsEdit(processedStory) {
-  const edit = document.querySelector(".madLibsEdit"); // Using querySelector to select a specific element
-  const pre = document.querySelector(".madLibsPreview"); // Using querySelector to select a specific element
+  const editPara = document.createElement("p");
+  const previewPara = document.createElement("p");
   const newArr = [];
   for (const item of processedStory) {
     if (item.pos) {
@@ -124,24 +158,30 @@ function madlibsEdit(processedStory) {
       const span = document.createElement("span");
 
       span.setAttribute("class", "opacity");
-      edit.appendChild(input);
-      pre.appendChild(span);
+      editPara.appendChild(input);
+      previewPara.appendChild(span);
 
       input.setAttribute("placeholder", item.pos);
       input.setAttribute("maxlength", "20");
       span.innerHTML = ` ${item.pos}`;
 
-      input.addEventListener("input", e => {
+      input.addEventListener("input", (e) => {
         (span.innerHTML = ` ${e.target.value}`),
           span.classList.add("noopacity");
       });
+      resetBtn.addEventListener("click", () => {
+        input.value = "";
+        input.setAttribute("placeholder", item.pos);
+        span.textContent = item.pos;
+      });
+
       newArr.push(input);
     } else {
-      edit.append(` ${item.word} `);
-      pre.append(` ${item.word} `);
+      editPara.append(` ${item.word} `);
+      previewPara.append(` ${item.word} `);
     }
     newArr.forEach((input, i) => {
-      input.addEventListener("keypress", e => {
+      input.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
           if (i < newArr.length - 1) {
             newArr[i + 1].focus();
@@ -150,10 +190,14 @@ function madlibsEdit(processedStory) {
       });
     });
   }
+  body.appendChild(playMusic);
+  body.appendChild(resetBtn);
+  edit.append(editPara);
+  pre.append(previewPara);
 }
 
 getRawStory()
   .then(parseStory)
-  .then(processedStory => {
+  .then((processedStory) => {
     madlibsEdit(processedStory);
   });
