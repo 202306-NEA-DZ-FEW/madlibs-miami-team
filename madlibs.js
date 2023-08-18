@@ -28,47 +28,44 @@
  */
 
 const progressFill = document.querySelector(".progress-fill"),
-  progressLoadNum = document.querySelector(".progress-load-num")
-let progressFillWidth = 10
+  progressLoadNum = document.querySelector(".progress-load-num");
+let progressFillWidth = 10;
 
 let id = setInterval(() => {
   if (progressFillWidth >= 300) {
     clearInterval(id);
   } else {
-    progressFillWidth += 2
-    progressLoadNum.innerText = parseInt(100 * progressFillWidth / 300) + "%"
+    progressFillWidth += 2;
+    progressLoadNum.innerText = parseInt((100 * progressFillWidth) / 300) + "%";
     progressFill.style.width = progressFillWidth + "px";
   }
-}, 11)
+}, 11);
 
 setTimeout(() => {
-  const content = document.getElementById("content")
-  content.style.opacity = 1
-  content.style.display = "block"
+  const content = document.getElementById("content");
+  content.style.opacity = 1;
+  content.style.display = "block";
   document.getElementById("loading").style.display = "none";
 }, 4000);
 
 ///// Start btn
 const startBtn = () => {
-  const bab1 = document.querySelector(".bab1")
-  const bab2 = document.querySelector(".bab2")
-  const container = document.querySelector(".start-page")
-  bab1.classList.add("bab1Anim")
-  bab2.classList.add("bab2Anim")
+  const bab1 = document.querySelector(".bab1");
+  const bab2 = document.querySelector(".bab2");
+  const container = document.querySelector(".start-page");
+  bab1.classList.add("bab1Anim");
+  bab2.classList.add("bab2Anim");
   setTimeout(() => {
-    container.style.display = 'none'
+    container.style.display = "none";
   }, 2100);
-}
+};
 
-///// sound btn 
+///// sound btn
 const soundBtn = () => {
-  const icon = document.querySelector(".checkbox img")
-  let opacity = icon.style.opacity
-  opacity == 1 ? icon.style.opacity = "0%" : icon.style.opacity = "100%"
-}
-
-
-
+  const icon = document.querySelector(".checkbox img");
+  let opacity = icon.style.opacity;
+  opacity == 1 ? (icon.style.opacity = "0%") : (icon.style.opacity = "100%");
+};
 
 function parseStory(rawStory) {
   // Your code here.
@@ -76,7 +73,7 @@ function parseStory(rawStory) {
   rawStory = rawStory.replace(/\,/g, " ,");
   let arrWord = rawStory.split(" ");
   let storyToObj = [];
-  arrWord.forEach((item) => {
+  arrWord.forEach(item => {
     if (item.match(/[[a-zA-Z]]/g)) {
       let key = item.split("[");
       switch (key[1]) {
@@ -120,7 +117,7 @@ function parseStory(rawStory) {
 function madlibsEdit(processedStory) {
   const edit = document.querySelector(".madLibsEdit"); // Using querySelector to select a specific element
   const pre = document.querySelector(".madLibsPreview"); // Using querySelector to select a specific element
-
+  const newArr = [];
   for (const item of processedStory) {
     if (item.pos) {
       const input = document.createElement("input");
@@ -134,19 +131,29 @@ function madlibsEdit(processedStory) {
       input.setAttribute("maxlength", "20");
       span.innerHTML = ` ${item.pos}`;
 
-      input.addEventListener("input", (e) => {
+      input.addEventListener("input", e => {
         (span.innerHTML = ` ${e.target.value}`),
           span.classList.add("noopacity");
       });
+      newArr.push(input);
     } else {
       edit.append(` ${item.word} `);
       pre.append(` ${item.word} `);
     }
+    newArr.forEach((input, i) => {
+      input.addEventListener("keypress", e => {
+        if (e.key === "Enter") {
+          if (i < newArr.length - 1) {
+            newArr[i + 1].focus();
+          }
+        }
+      });
+    });
   }
 }
 
 getRawStory()
   .then(parseStory)
-  .then((processedStory) => {
+  .then(processedStory => {
     madlibsEdit(processedStory);
   });
