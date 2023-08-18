@@ -28,9 +28,37 @@
  */
 function parseStory(rawStory) {
   // Your code here.
-  return {}; // This line is currently wrong :)
+  rawStory = rawStory.replace(/\./g, ' .')
+  rawStory = rawStory.replace(/\,/g, ' ,')
+  let arrWord = rawStory.split(" ")
+  let storyToObj = []
+  arrWord.forEach(item => {
+    if (item.match(/[[a-zA-Z]]/g)) {
+      let key = item.split("[")
+      switch (key[1]) {
+        case "n]":
+          storyToObj.push({
+            word: key[0],
+            pos: "noun"
+          })
+          break;
+        case "v]":
+          storyToObj.push({
+            word: key[0],
+            pos: "verb"
+          })
+          break;
+        default:
+          break;
+      }
+    } else {
+      storyToObj.push({
+        word: item
+      })
+    }
+  });
+  return storyToObj
 }
-
 /**
  * All your other JavaScript code goes here, inside the function. Don't worry about
  * the `then` and `async` syntax for now.
@@ -38,5 +66,6 @@ function parseStory(rawStory) {
  * You'll want to use the results of parseStory() to display the story on the page.
  */
 getRawStory().then(parseStory).then((processedStory) => {
-  console.log(processedStory);
+
 });
+
