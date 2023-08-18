@@ -131,9 +131,22 @@ function madlibsEdit(processedStory) {
       input.setAttribute("maxlength", "20");
       span.innerHTML = ` ${item.pos}`;
 
+      input.addEventListener("focus", function () {
+        input.style.backgroundColor = "green";
+      });
+
+      input.addEventListener("blur", function () {
+        input.style.backgroundColor = "";
+      });
+
       input.addEventListener("input", e => {
-        (span.innerHTML = ` ${e.target.value}`),
+        if (e.target.value === '') {
+          span.innerHTML = ` ${item.pos}`;
+          span.classList.remove("noopacity");
+        } else {
+          span.innerHTML = ` ${e.target.value}`;
           span.classList.add("noopacity");
+        }
       });
       newArr.push(input);
     } else {
@@ -151,6 +164,7 @@ function madlibsEdit(processedStory) {
     });
   }
 }
+
 
 getRawStory()
   .then(parseStory)
