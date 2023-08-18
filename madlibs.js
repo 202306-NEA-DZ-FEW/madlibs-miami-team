@@ -166,15 +166,27 @@ function madlibsEdit(processedStory) {
       span.innerHTML = ` ${item.pos}`;
 
       input.addEventListener("input", (e) => {
-        (span.innerHTML = ` ${e.target.value}`),
+        if (e.target.value === "") {
+          span.innerHTML = ` ${item.pos}`;
+          span.classList.remove("noopacity");
+        } else {
+          span.innerHTML = ` ${e.target.value}`;
           span.classList.add("noopacity");
+        }
       });
+      input.addEventListener("focus", function () {
+        input.style.backgroundColor = "green";
+      });
+
+      input.addEventListener("blur", function () {
+        input.style.backgroundColor = "";
+      });
+
       resetBtn.addEventListener("click", () => {
         input.value = "";
         input.setAttribute("placeholder", item.pos);
         span.textContent = item.pos;
       });
-
       newArr.push(input);
     } else {
       editPara.append(` ${item.word} `);
