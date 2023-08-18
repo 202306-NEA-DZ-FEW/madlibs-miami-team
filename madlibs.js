@@ -26,6 +26,50 @@
  * There are multiple ways to do this, but you may want to use regular expressions.
  * Please go through this lesson: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/regular-expressions/
  */
+
+const progressFill = document.querySelector(".progress-fill"),
+  progressLoadNum = document.querySelector(".progress-load-num")
+let progressFillWidth = 10
+
+let id = setInterval(() => {
+  if (progressFillWidth >= 300) {
+    clearInterval(id);
+  } else {
+    progressFillWidth += 2
+    progressLoadNum.innerText = parseInt(100 * progressFillWidth / 300) + "%"
+    progressFill.style.width = progressFillWidth + "px";
+  }
+}, 11)
+
+setTimeout(() => {
+  const content = document.getElementById("content")
+  content.style.opacity = 1
+  content.style.display = "block"
+  document.getElementById("loading").style.display = "none";
+}, 4000);
+
+///// Start btn
+const startBtn = () => {
+  const bab1 = document.querySelector(".bab1")
+  const bab2 = document.querySelector(".bab2")
+  const container = document.querySelector(".start-page")
+  bab1.classList.add("bab1Anim")
+  bab2.classList.add("bab2Anim")
+  setTimeout(() => {
+    container.style.display = 'none'
+  }, 2100);
+}
+
+///// sound btn 
+const soundBtn = () => {
+  const icon = document.querySelector(".checkbox img")
+  let opacity = icon.style.opacity
+  opacity == 1 ? icon.style.opacity = "0%" : icon.style.opacity = "100%"
+}
+
+
+
+
 function parseStory(rawStory) {
   // Your code here.
   rawStory = rawStory.replace(/\./g, ' .')
