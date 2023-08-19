@@ -3,16 +3,16 @@
  */
 
 body {
-    background-image: url("assets/jumanji.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-family: "Merienda", cursive;
-    text-align: center;
-    text-indent: 0.5cm;
-    padding: 0;
-    margin: 0;
-    font-size: auto;
-    word-spacing: 3px;
+  background-image: url("assets/jumanji.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Merienda", cursive;
+  text-align: center;
+  text-indent: 0.5cm;
+  padding: 0;
+  margin: 0;
+  font-size: auto;
+  word-spacing: 3px;
 }
 
 button {
@@ -30,6 +30,7 @@ button {
 .content {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
+  width: 100%;
 }
 
 .hidden {
@@ -81,11 +82,16 @@ button {
 }
 
 .start-page {
-  position: absolute;
-  top: 0;
   width: 100%;
   height: 100vh;
   overflow: hidden;
+}
+
+.loading,
+.start-page {
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .bab1,
@@ -204,109 +210,107 @@ button {
 }
 
 .container {
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.madLibsEdit{
-    height: auto;
-    padding: 30px;
-    flex: 50%;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    background-image: url("assets/paper2.jpg"); 
-    box-shadow: 0px 4px 20px 0px rgba(255, 255, 255, 0.72);
-    background-repeat: no-repeat;
-    background-size: cover; 
-    object-fit: initial; 
+.madLibsEdit,
+.madLibsPreview {
+  padding: 20px;
+  flex: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("assets/paper2.jpg");
+  box-shadow: 0px 4px 20px 0px rgba(255, 255, 255, 0.72);
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: initial;
+  line-height: 1.7;
 }
-.madLibsPreview{
-    height: auto;
-    padding: 30px;
-    flex: 50%;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    box-shadow: 0px 4px 20px 0px rgba(255, 255, 255, 0.72);
-    background-image: url("assets/paper2.jpg");
-    background-repeat: no-repeat;
-    background-size: cover; 
-    object-fit: initial;
+.madLibsPreview {
+  background-image: url("assets/paper2.jpg");
+  line-height: 1.9;
 }
 
 /* the text for our two stories (one where we input and preview) */
 
-.editText {
-    color: #300900;
-    text-align: justify;
-  }
-
-  
+.editText,
 .previewText {
-    color: #300900;
-    text-align: justify;
-  }
+  color: #1a0501;
+  text-align: justify;
+  font-weight: 600;
+}
 
-  /* styling for the logo on the main page */
+/* styling for the logo on the main page */
 
 .logoContainer {
-    position: relative;
-    top: 0;
-    text-align: center;
+  position: relative;
+  top: 0;
+  text-align: center;
 }
-#inLogo{
-    width: 30%;
-    height: 30%;
+#inLogo {
+  width: 30%;
+  height: 30%;
 }
-
+.input {
+  border: none;
+  text-align: center;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: 5px;
+  padding: none;
+  width: auto;
+}
 
 /* style for music and reset button */
 #musicButton {
-    color: rgb(255, 255, 255);
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 10px;
-    border: 5px solid #FFB904;
-    background: #372C28;
-    box-shadow: 0px 4px 20px 0px rgba(3, 155, 0, 0.72);
-    margin-bottom: 20px;
-    margin-right: 30px;
-    width: 100px;
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 5px solid #ffb904;
+  background: #372c28;
+  box-shadow: 0px 4px 20px 0px rgba(3, 155, 0, 0.72);
+  margin-bottom: 20px;
+  margin-right: 30px;
+  width: 100px;
 }
 
 #resetButton {
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 10px;
-    border: 5px solid #FFB904;
-    background: #372C28;
-    box-shadow: 0px 4px 20px 0px rgba(3, 155, 0, 0.72);
-    margin-bottom: 20px;
-    margin-left: 30px;
-    width: 100px;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 5px solid #ffb904;
+  background: #372c28;
+  box-shadow: 0px 4px 20px 0px rgba(3, 155, 0, 0.72);
+  margin-bottom: 20px;
+  margin-left: 30px;
+  width: 100px;
 }
 
 /* for when it goes under a certain width */
-  @media (max-width: 786px) {
-     .container {
-      align-items: center;
-      flex-direction: column;
+@media (max-width: 786px) {
+  .container {
+    align-items: center;
+    flex-direction: column;
+  }
 
-    } 
-    
-.madLibsEdit,
-    .madLibsPreview {
-      padding: 10px;
-      flex: 100%;
-    } 
-    #musicButton, #resetButton{
-        margin-top: 30px;
-        margin-bottom: 10px;
-    }  }
+  .madLibsEdit,
+  .madLibsPreview {
+    padding: 10px;
+    flex: 100%;
+  }
+  #musicButton,
+  #resetButton {
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+}
 
 .play_music {
   display: hidden;
