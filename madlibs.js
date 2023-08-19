@@ -26,7 +26,7 @@
  * There are multiple ways to do this, but you may want to use regular expressions.
  * Please go through this lesson: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/regular-expressions/
  */
-document.body.style.overflow = "hidden";
+// document.body.style.overflow = "hidden";
 
 const progressFill = document.querySelector(".progress-fill"),
   progressLoadNum = document.querySelector(".progress-load-num");
@@ -67,6 +67,15 @@ const soundBtn = () => {
   let opacity = icon.style.opacity;
   opacity == 1 ? (icon.style.opacity = "0%") : (icon.style.opacity = "100%");
 };
+const body = document.querySelector("body");
+const container = document.createElement("div");
+const starPage = document.querySelector("start-page");
+const loading = document.querySelector("#loading");
+
+document.body.style.overflow = "hidden";
+container.addEventListener("scroll", () => {
+  document.body.style.overflow = "hidden";
+});
 
 function parseStory(rawStory) {
   // Your code here.
@@ -114,8 +123,7 @@ function parseStory(rawStory) {
  * You'll want to use the results of parseStory() to display the story on the page.
  *
  */
-const body = document.querySelector("body");
-const container = document.createElement("div");
+
 const edit = document.querySelector(".madLibsEdit"); // Using querySelector to select a specific element
 const pre = document.querySelector(".madLibsPreview"); // Using querySelector to select a specific element
 const playMusic = document.createElement("button");
