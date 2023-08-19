@@ -26,7 +26,6 @@
  * There are multiple ways to do this, but you may want to use regular expressions.
  * Please go through this lesson: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/regular-expressions/
  */
-document.body.style.overflow = "hidden";
 
 const progressFill = document.querySelector(".progress-fill"),
   progressLoadNum = document.querySelector(".progress-load-num");
@@ -67,6 +66,8 @@ const soundBtn = () => {
   let opacity = icon.style.opacity;
   opacity == 1 ? (icon.style.opacity = "0%") : (icon.style.opacity = "100%");
 };
+
+
 
 function parseStory(rawStory) {
   // Your code here.
@@ -114,12 +115,14 @@ function parseStory(rawStory) {
  * You'll want to use the results of parseStory() to display the story on the page.
  *
  */
-const body = document.querySelector("body");
+const body= document.querySelector("body");
 const container = document.createElement("div");
 const edit = document.querySelector(".madLibsEdit"); // Using querySelector to select a specific element
 const pre = document.querySelector(".madLibsPreview"); // Using querySelector to select a specific element
 const playMusic = document.createElement("button");
+playMusic.id="musicButton"
 const resetBtn = document.createElement("button");
+resetBtn.id = "resetButton"
 const soundCheckBtn = document.querySelector(".sound-btn");
 const sound = document.getElementById("sound");
 soundCheckBtn.addEventListener("click", () => {
@@ -150,7 +153,9 @@ container.appendChild(pre);
 
 function madlibsEdit(processedStory) {
   const editPara = document.createElement("p");
+  editPara.className = "editText"
   const previewPara = document.createElement("p");
+  previewPara.className = "previewText"
   const newArr = [];
   for (const item of processedStory) {
     if (item.pos) {
@@ -163,29 +168,32 @@ function madlibsEdit(processedStory) {
 
       input.setAttribute("placeholder", item.pos);
       input.setAttribute("maxlength", "20");
+      input.style.width=("80px");
       span.innerHTML = ` ${item.pos}`;
 
       input.addEventListener("input", (e) => {
         if (e.target.value === "") {
           span.innerHTML = ` ${item.pos}`;
           span.classList.remove("noopacity");
+
         } else {
           span.innerHTML = ` ${e.target.value}`;
           span.classList.add("noopacity");
         }
       });
       input.addEventListener("focus", function () {
-        input.style.backgroundColor = "green";
+        input.style.backgroundColor =  "#b9ddb8b8";
       });
 
       input.addEventListener("blur", function () {
-        input.style.backgroundColor = "";
+        input.style.backgroundColor = "#ecd599"
       });
 
       resetBtn.addEventListener("click", () => {
         input.value = "";
         input.setAttribute("placeholder", item.pos);
         span.textContent = item.pos;
+        input.style.backgroundColor = ""
       });
       newArr.push(input);
     } else {
@@ -213,3 +221,4 @@ getRawStory()
   .then((processedStory) => {
     madlibsEdit(processedStory);
   });
+

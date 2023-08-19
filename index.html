@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
     <title>repl.it</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,6 +22,9 @@
       </div>
     </div>
     <div id="content" class="content hidden">
+      <div class="logoContainer">
+        <img src="assets/jumanjiLogo.png" alt="Logo" id="inLogo">
+      </div>
       <div class="start-page">
         <div class="bab1"></div>
         <div class="bab2">
@@ -36,10 +39,15 @@
           </div>
         </div>
       </div>
-      <audio id="sound"><source src="sound/jumanji.mp3" /></audio>
-      <div class="madLibsEdit"></div>
-      <div class="madLibsPreview"></div>
-    </div>
+      <audio id="sound" loop="true"><source src="sound/jumanji.mp3" /></audio>
+      
+        <div class="madLibsEdit">
+        </div>
+      
+      
+        <div class="madLibsPreview">
+        </div>
+      </div>
 
     <script src="do-not-touch.js"></script>
     <script src="madlibs.js"></script>
