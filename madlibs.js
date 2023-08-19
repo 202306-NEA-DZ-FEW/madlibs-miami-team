@@ -26,7 +26,7 @@
  * There are multiple ways to do this, but you may want to use regular expressions.
  * Please go through this lesson: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/regular-expressions/
  */
-document.body.style.overflow = "hidden";
+// document.body.style.overflow = "hidden";
 
 const progressFill = document.querySelector(".progress-fill"),
   progressLoadNum = document.querySelector(".progress-load-num");
@@ -119,7 +119,9 @@ const container = document.createElement("div");
 const edit = document.querySelector(".madLibsEdit"); // Using querySelector to select a specific element
 const pre = document.querySelector(".madLibsPreview"); // Using querySelector to select a specific element
 const playMusic = document.createElement("button");
+playMusic.id="musicButton";
 const resetBtn = document.createElement("button");
+resetBtn.id = "resetButton"
 const soundCheckBtn = document.querySelector(".sound-btn");
 const sound = document.getElementById("sound");
 soundCheckBtn.addEventListener("click", () => {
@@ -150,7 +152,10 @@ container.appendChild(pre);
 
 function madlibsEdit(processedStory) {
   const editPara = document.createElement("p");
+  editPara.className = "editText"
   const previewPara = document.createElement("p");
+  previewPara.className = "previewText"
+
   const newArr = [];
   for (const item of processedStory) {
     if (item.pos) {
@@ -163,6 +168,7 @@ function madlibsEdit(processedStory) {
 
       input.setAttribute("placeholder", item.pos);
       input.setAttribute("maxlength", "20");
+      input.style.width=("80px")
       span.innerHTML = ` ${item.pos}`;
 
       input.addEventListener("input", (e) => {
@@ -176,16 +182,18 @@ function madlibsEdit(processedStory) {
       });
       input.addEventListener("focus", function () {
         input.style.backgroundColor = "green";
+        input.style.backgroundColor =  "#b9ddb8b8";
       });
 
       input.addEventListener("blur", function () {
-        input.style.backgroundColor = "";
+        input.style.backgroundColor = "#ecd599"
       });
 
       resetBtn.addEventListener("click", () => {
         input.value = "";
         input.setAttribute("placeholder", item.pos);
         span.textContent = item.pos;
+        input.style.backgroundColor = ""
       });
       newArr.push(input);
     } else {
