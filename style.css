@@ -229,6 +229,7 @@ button {
   background-size: cover;
   object-fit: initial;
   line-height: 1.7;
+  border-radius: 5px;
 }
 .madLibsPreview {
   background-image: url("assets/paper2.jpg");
@@ -242,6 +243,12 @@ button {
   color: #1a0501;
   text-align: justify;
   font-weight: 600;
+}
+
+/* styling the span  */
+.spanText {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(3, 155, 0, 0.72);
 }
 
 /* styling for the logo on the main page */
@@ -263,7 +270,7 @@ button {
   font-size: inherit;
   border-radius: 5px;
   padding: none;
-  width: auto;
+  width: 80px;
 }
 
 /* style for music and reset button */
