@@ -53,11 +53,12 @@ setTimeout(() => {
 const startBtn = () => {
   const bab1 = document.querySelector(".bab1");
   const bab2 = document.querySelector(".bab2");
-  const container = document.querySelector(".start-page");
+  const startPage = document.querySelector(".start-page");
   bab1.classList.add("bab1Anim");
   bab2.classList.add("bab2Anim");
+  container.style.display = 'flex'
   setTimeout(() => {
-    container.style.display = "none";
+    startPage.style.display = "none";
   }, 2100);
 };
 
@@ -117,6 +118,7 @@ function parseStory(rawStory) {
  */
 // Using querySelector to select a specific element
 const body = document.querySelector("body");
+const container = document.querySelector(".container");
 const edit = document.querySelector(".madLibsEdit"); // Using querySelector to select a specific element
 const pre = document.querySelector(".madLibsPreview"); // Using querySelector to select a specific element
 const playMusic = document.createElement("button");
@@ -152,8 +154,7 @@ playMusic.addEventListener("click", () => {
 });
 
 container.setAttribute("class", "container");
-container.appendChild(edit);
-container.appendChild(pre);
+
 
 // showing the story
 
@@ -193,7 +194,12 @@ function madlibsEdit(processedStory) {
       });
       // input blur
       input.addEventListener("blur", function () {
-        input.style.backgroundColor = "#ecd599";
+        if (this.value != "") {
+          input.style.backgroundColor = "#ecd599";
+        } else {
+          input.style.backgroundColor = "#fff";
+
+        }
       });
       // reseting all the inputs when button is clicked
       resetBtn.addEventListener("click", () => {
@@ -204,8 +210,14 @@ function madlibsEdit(processedStory) {
       });
       newArr.push(input);
     } else {
-      editPara.append(` ${item.word} `);
-      previewPara.append(` ${item.word} `);
+      if (item.word == ',' || item.word == '.') {
+        editPara.append(`${item.word} `);
+        previewPara.append(`${item.word} `);
+      } else {
+        editPara.append(` ${item.word} `);
+        previewPara.append(` ${item.word} `);
+      }
+
     }
     // HotKeys event
     newArr.forEach((input, i) => {
@@ -218,8 +230,9 @@ function madlibsEdit(processedStory) {
       });
     });
   }
-  container.appendChild(playMusic);
-  container.appendChild(resetBtn);
+  const btnsContainer = document.querySelector('.btns-container')
+  btnsContainer.appendChild(playMusic);
+  btnsContainer.appendChild(resetBtn);
   edit.append(editPara);
   pre.append(previewPara);
 }
