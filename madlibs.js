@@ -68,13 +68,14 @@ const soundBtn = () => {
   opacity == 1 ? (icon.style.opacity = "0%") : (icon.style.opacity = "100%");
 };
 
+// Parsing the story
 function parseStory(rawStory) {
   // Your code here.
   rawStory = rawStory.replace(/\./g, " .");
   rawStory = rawStory.replace(/\,/g, " ,");
   let arrWord = rawStory.split(" ");
   let storyToObj = [];
-  arrWord.forEach((item) => {
+  arrWord.forEach(item => {
     if (item.match(/[[a-zA-Z]]/g)) {
       let key = item.split("[");
       switch (key[1]) {
@@ -114,16 +115,22 @@ function parseStory(rawStory) {
  * You'll want to use the results of parseStory() to display the story on the page.
  *
  */
+// Using querySelector to select a specific element
 const body = document.querySelector("body");
 const container = document.createElement("div");
-const edit = document.querySelector(".madLibsEdit"); // Using querySelector to select a specific element
-const pre = document.querySelector(".madLibsPreview"); // Using querySelector to select a specific element
+const edit = document.querySelector(".madLibsEdit");
+const pre = document.querySelector(".madLibsPreview");
+// creating a play and reset buttons
 const playMusic = document.createElement("button");
-playMusic.id = "musicButton";
 const resetBtn = document.createElement("button");
+playMusic.id = "musicButton";
 resetBtn.id = "resetButton";
+playMusic.textContent = "Play";
+resetBtn.textContent = "Reset";
+// selecting the sound button in the start page
 const soundCheckBtn = document.querySelector(".sound-btn");
 const sound = document.getElementById("sound");
+// adding click event to soundCheckBtn
 soundCheckBtn.addEventListener("click", () => {
   if (sound.paused) {
     sound.play();
@@ -132,10 +139,9 @@ soundCheckBtn.addEventListener("click", () => {
     sound.pause();
   }
 });
-body.append(container);
-playMusic.textContent = "Play";
-resetBtn.textContent = "Reset";
 
+body.append(container);
+// adding click event to play/pause button
 playMusic.addEventListener("click", () => {
   if (sound.paused) {
     sound.play();
@@ -150,6 +156,8 @@ container.setAttribute("class", "container");
 container.appendChild(edit);
 container.appendChild(pre);
 
+// showing the story
+
 function madlibsEdit(processedStory) {
   const editPara = document.createElement("p");
   editPara.className = "editText";
@@ -161,34 +169,34 @@ function madlibsEdit(processedStory) {
     if (item.pos) {
       const input = document.createElement("input");
       const span = document.createElement("span");
-
-      span.setAttribute("class", "opacity");
+      // adding style to the preview words
+      span.setAttribute("class", "spanText");
+      // adding styling to the input
+      input.setAttribute("class", "input");
       editPara.appendChild(input);
       previewPara.appendChild(span);
-      input.setAttribute("class", "input");
+      // Constraining user inputs;
       input.setAttribute("placeholder", item.pos);
       input.setAttribute("maxlength", "20");
-      input.style.width = "80px";
       span.innerHTML = ` ${item.pos}`;
-
-      input.addEventListener("input", (e) => {
+      // event listener for live update in the preview
+      input.addEventListener("input", e => {
         if (e.target.value === "") {
           span.innerHTML = ` ${item.pos}`;
-          span.classList.remove("noopacity");
         } else {
           span.innerHTML = ` ${e.target.value}`;
-          span.classList.add("noopacity");
         }
       });
+      // Highlighting currently focused input
       input.addEventListener("focus", function () {
         input.style.backgroundColor = "green";
         input.style.backgroundColor = "#b9ddb8b8";
       });
-
+      // input blur
       input.addEventListener("blur", function () {
         input.style.backgroundColor = "#ecd599";
       });
-
+      // reseting all the inputs when button is clicked
       resetBtn.addEventListener("click", () => {
         input.value = "";
         input.setAttribute("placeholder", item.pos);
@@ -200,8 +208,9 @@ function madlibsEdit(processedStory) {
       editPara.append(` ${item.word} `);
       previewPara.append(` ${item.word} `);
     }
+    // HotKeys event
     newArr.forEach((input, i) => {
-      input.addEventListener("keypress", (e) => {
+      input.addEventListener("keypress", e => {
         if (e.key === "Enter") {
           if (i < newArr.length - 1) {
             newArr[i + 1].focus();
@@ -218,6 +227,6 @@ function madlibsEdit(processedStory) {
 
 getRawStory()
   .then(parseStory)
-  .then((processedStory) => {
+  .then(processedStory => {
     madlibsEdit(processedStory);
   });
