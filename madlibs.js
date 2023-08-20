@@ -115,7 +115,7 @@ function parseStory(rawStory) {
  *
  */
 const body = document.querySelector("body");
-const container = document.createElement("div");
+const container = document.querySelector('.container')
 const edit = document.querySelector(".madLibsEdit"); // Using querySelector to select a specific element
 const pre = document.querySelector(".madLibsPreview"); // Using querySelector to select a specific element
 const playMusic = document.createElement("button");
@@ -132,7 +132,7 @@ soundCheckBtn.addEventListener("click", () => {
     sound.pause();
   }
 });
-body.append(container);
+
 playMusic.textContent = "Play";
 resetBtn.textContent = "Reset";
 
@@ -210,8 +210,8 @@ function madlibsEdit(processedStory) {
       });
     });
   }
-  body.appendChild(playMusic);
-  body.appendChild(resetBtn);
+  container.appendChild(playMusic);
+  container.appendChild(resetBtn);
   edit.append(editPara);
   pre.append(previewPara);
 }
