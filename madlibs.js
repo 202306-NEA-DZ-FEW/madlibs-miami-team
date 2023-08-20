@@ -75,7 +75,7 @@ function parseStory(rawStory) {
   rawStory = rawStory.replace(/\,/g, " ,");
   let arrWord = rawStory.split(" ");
   let storyToObj = [];
-  arrWord.forEach(item => {
+  arrWord.forEach((item) => {
     if (item.match(/[[a-zA-Z]]/g)) {
       let key = item.split("[");
       switch (key[1]) {
@@ -165,6 +165,7 @@ function madlibsEdit(processedStory) {
   previewPara.className = "previewText";
 
   const newArr = [];
+  //making a for loop over the processed story to check whether the item has a pos or not 
   for (const item of processedStory) {
     if (item.pos) {
       const input = document.createElement("input");
@@ -180,7 +181,7 @@ function madlibsEdit(processedStory) {
       input.setAttribute("maxlength", "20");
       span.innerHTML = ` ${item.pos}`;
       // event listener for live update in the preview
-      input.addEventListener("input", e => {
+      input.addEventListener("input", (e) => {
         if (e.target.value === "") {
           span.innerHTML = ` ${item.pos}`;
         } else {
@@ -189,7 +190,6 @@ function madlibsEdit(processedStory) {
       });
       // Highlighting currently focused input
       input.addEventListener("focus", function () {
-        input.style.backgroundColor = "green";
         input.style.backgroundColor = "#b9ddb8b8";
       });
       // input blur
@@ -210,7 +210,7 @@ function madlibsEdit(processedStory) {
     }
     // HotKeys event
     newArr.forEach((input, i) => {
-      input.addEventListener("keypress", e => {
+      input.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
           if (i < newArr.length - 1) {
             newArr[i + 1].focus();
@@ -227,6 +227,6 @@ function madlibsEdit(processedStory) {
 
 getRawStory()
   .then(parseStory)
-  .then(processedStory => {
+  .then((processedStory) => {
     madlibsEdit(processedStory);
   });
