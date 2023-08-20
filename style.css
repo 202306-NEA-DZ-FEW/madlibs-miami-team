@@ -208,8 +208,9 @@ button {
 }
 
 .container {
-  display: flex;
+  display: none;
   justify-content: space-evenly;
+  flex-direction: column;
   align-items: center;
   background-image: url("/assets/jumanji.png");
   width: 100%;
@@ -218,15 +219,20 @@ button {
   background-repeat: no-repeat;
 }
 
+.prev-edit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 5rem;
+}
 
 .madLibsEdit,
 .madLibsPreview {
   background-image: url("assets/paper.png");
-  background-size: cover;
   line-height: 1.7;
-  width: 30%;
-  padding: 2rem;
-  height: 60vh;
+  width: 25%;
+  padding: 2rem 3.5rem;
+  height: 70vh;
   background-size: 100% 100%;
 }
 
@@ -302,18 +308,36 @@ button:hover {
   .container {
     align-items: center;
     flex-direction: column;
+    height: fit-content;
+  }
+
+  .prev-edit {
+    flex-direction: column;
+    margin-top: 8rem;
+    align-items: center;
+
   }
 
   .madLibsEdit,
   .madLibsPreview {
-    padding: 10px;
-    flex: 100%;
+    padding: 20px;
+    width: 90%;
+    height: 68vh;
+    box-sizing: border-box;
   }
 
   #musicButton,
   #resetButton {
     margin-top: 30px;
     margin-bottom: 10px;
+  }
+
+  .logo-load {
+    width: 250px;
+  }
+
+  .loading {
+    background-position: 50% 0%;
   }
 }
 
