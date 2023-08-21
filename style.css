@@ -320,10 +320,11 @@ button:hover {
 
   .madLibsEdit,
   .madLibsPreview {
-    padding: 20px;
-    width: 90%;
-    height: 68vh;
+    padding: 1.8rem;
+    width: 95%;
+    height: fit-content;
     box-sizing: border-box;
+    margin-bottom: 1rem;
   }
 
   #musicButton,
