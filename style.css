@@ -214,7 +214,6 @@ button {
   align-items: center;
   background-image: url("/assets/jumanji.png");
   width: 100%;
-  height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -229,11 +228,12 @@ button {
 .madLibsEdit,
 .madLibsPreview {
   background-image: url("assets/paper.png");
+  background-size: cover;
   line-height: 1.7;
   width: 25%;
   padding: 2rem 3.5rem;
-  height: 70vh;
-  background-size: 100% 100%;
+  height:fit-content
+  
 }
 
 .madLibsPreview {
